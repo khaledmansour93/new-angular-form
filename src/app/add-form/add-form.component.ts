@@ -1,22 +1,20 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
-import { AddService } from './add.service';
-import { Chart } from 'angular-highcharts';
+import { Component } from '@angular/core';
+import { FormBuilder } from '@angular/forms'; // helper API to build complex forms with less code
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-form',
   templateUrl: './add-form.component.html',
   styleUrls: ['./add-form.component.scss']
 })
-export class AddFormComponent implements OnInit {
-
-  items = this.addService.getData();
+export class AddFormComponent {
 
   formValues: any;
-  chart: any;
 
-  creationForm = this.formBuilder.group({
-    sample1: [''],
+  constructor(private formBuilder: FormBuilder, private router: Router) { }
+
+  creationForm = this.formBuilder.group({ // Adding form controls to be bound to template form controls
+    sample1: [''],  // First argument to form control is the initial value
     sample2: [''],
     sample3: [''],
     sample4: [''],
@@ -28,64 +26,21 @@ export class AddFormComponent implements OnInit {
     sample10: ['']
   });
 
-  constructor(
-    private addService: AddService,
-    private formBuilder: FormBuilder
-  ) { }
-
   onSubmit(): void {
-    this.formValues = this.creationForm.value;
+    this.formValues = this.creationForm.value;  // An object containing values of our form controls
+
+    // Converting form controls object to an array of strings then to array of numbers to pass it to chart
     const values = Object.values(this.formValues).map(elem => {
       return Number(elem);
     });
 
-    this.chart = new Chart({
-      title: {
-        text: 'Monthly Average Rainfall'
-      },
-      subtitle: {
-        text: 'Source: WorldClimate.com'
-      },
-      xAxis: {
-        categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul',
-          'Aug', 'Sep', 'Oct'],
-        crosshair: true
-      },
-      yAxis: {
-        min: 0,
-        title: {
-          text: 'Rainfall (mm)'
-        }
-      },
-      tooltip: {
-        headerFormat: '<span style = "font-size:10px">{point.key}</span><table>',
-        pointFormat: '<tr><td style = "color:{series.color};padding:0">{series.name}: </td>' +
-          '<td style = "padding:0"><b>{point.y:.1f} mm</b></td></tr>',
-        footerFormat: '</table>', shared: true, useHTML: true
-      },
-      plotOptions: {
-        column: {
-          pointPadding: 0.2,
-          borderWidth: 0
-        }
-      },
-      series: [{
-        type: 'column',
-        name: 'Tokyo',
-        data: values
-      }]
-    });
-
-    this.items = this.addService.clearForm();
+    // Navigating and sending data to charts
+    this.router.navigateByUrl('/charts', { state: { data: values } });
     console.warn('Your data has been submitted', this.creationForm.value);
-    this.creationForm.reset();
+    this.resetForm();
   }
 
   resetForm() {
-    this.creationForm.reset();
+    this.creationForm.reset();  // Reset form controls to their initial values if set. Otherwise, null
   }
-
-  ngOnInit(): void {
-  }
-
 }
