@@ -22,8 +22,8 @@ For this project, angular-highcharts is included using the [distribution package
 5. Build app using the following command: ng-serve-o and the output should appear as follows:
 
 
-![Column chart highcharts](https://user-images.githubusercontent.com/41340307/231448624-1c327a70-021c-44d1-971c-cc8ad950600a.PNG)
+![Samples add form](https://user-images.githubusercontent.com/41340307/232092583-d49ef93e-6dcd-40c2-afc3-43c0c4a6a9eb.PNG)
 
-![Column chart highcharts 2](https://user-images.githubusercontent.com/41340307/231448747-c4d56d05-4e88-4fc3-8c06-765a2e8a8c4c.PNG)
+![Column chart highcharts](https://user-images.githubusercontent.com/41340307/232092653-7bd4b095-e218-4555-b583-e3044556822b.PNG)
 
-![Column chart highcharts 3](https://user-images.githubusercontent.com/41340307/231448762-fcc9cc62-0d26-45e5-b57f-069f7021fe4a.PNG)
+![Column chart highcharts 2](https://user-images.githubusercontent.com/41340307/232092695-3d0f1eff-7adb-4086-bddb-cc289a71c56b.PNG)
